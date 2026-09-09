@@ -43,7 +43,7 @@ réservations.
     Classe Ressource
       Attributs:
           -nom              : Type String
-          -type             : Type String
+          -type             : Type enum {BOX,PROJECTEUR,SALLE,ORDINATEUR}
           -numero           : Type int
           -disponible       : Type boolean
           -reservationActive: Type reservation
