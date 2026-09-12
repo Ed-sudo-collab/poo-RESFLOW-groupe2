@@ -1,8 +1,8 @@
 /**
- * Ressource partagee : salle, projecteur, box, ordinateur, etc.
+ * Ressource partagee
  */
-public class Ressource {
-
+public abstract class Ressource {
+    // abstract afin qu'un objet de typ Ressource ne puise être créer
     private int numero;
     private String nom;
     private boolean disponible;
@@ -32,14 +32,7 @@ public class Ressource {
     }
 
     public boolean reserver(int numeroReservation, Utilisateur utilisateur, Creneau creneau) {
-        if (!disponible) {
-            System.out.println("Reservation refusee : " + nom + " est deja reservee.");
-            return false;
-        }
-        reservationActive = new Reservation(numeroReservation, this, utilisateur, creneau);
-        disponible = false;
-        System.out.println("Reservation acceptee.");
-        return true;
+       //à compléter
     }
 
     public void liberer() {
@@ -57,4 +50,11 @@ public class Ressource {
                     "Ressource n°" + numero + " | " + nom + " | Indisponible");
         }
     }
+
+    public abstract int dureeMaxReservation();
+
+    public String toString() {
+        return "Ressource" + numero + " ;" + nom + " ;" + disponible + ";" + reservationActive;
+    }
+
 }
