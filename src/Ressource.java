@@ -3,23 +3,14 @@
  */
 public class Ressource {
 
-    public enum TypeRessource {
-        BOX,
-        PROJECTEUR,
-        SALLE,
-        ORDINATEUR
-    }
-
     private int numero;
     private String nom;
-    private TypeRessource type;
     private boolean disponible;
     private Reservation reservationActive;
 
-    public Ressource(int numero, String nom, TypeRessource type) {
+    public Ressource(int numero, String nom) {
         this.numero = numero;
         this.nom = nom;
-        this.type = type;
         this.disponible = true;
         this.reservationActive = null;
     }
@@ -30,10 +21,6 @@ public class Ressource {
 
     public String getNom() {
         return nom;
-    }
-
-    public TypeRessource getType() {
-        return type;
     }
 
     public boolean estDisponible() {
@@ -64,12 +51,10 @@ public class Ressource {
     public void afficher() {
         if (disponible) {
             System.out.println(
-                "Ressource n°" + numero + " | " + nom + " | Type : " + type + " | Disponible"
-            );
+                    "Ressource n°" + numero + " | " + nom + " | Disponible");
         } else {
             System.out.println(
-                "Ressource n°" + numero + " | " + nom + " | Type : " + type + " | Indisponible"
-            );
+                    "Ressource n°" + numero + " | " + nom + " | Indisponible");
         }
     }
 }

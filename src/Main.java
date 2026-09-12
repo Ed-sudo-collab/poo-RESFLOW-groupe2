@@ -4,10 +4,10 @@
 public class Main {
 
     public static void main(String[] args) {
-        
-        Ressource salle = new Ressource(1, "Salle B12", Ressource.TypeRessource.SALLE);
-        Ressource projecteur = new Ressource(2, "Videoprojecteur Epson", Ressource.TypeRessource.PROJECTEUR);
-        Ressource box = new Ressource(3, "Box A", Ressource.TypeRessource.BOX);
+
+        Ressource salle = new Ressource(1, "Salle B12");
+        Ressource projecteur = new Ressource(2, "Videoprojecteur Epson");
+        Ressource box = new Ressource(3, "Box A");
 
         Utilisateur aminata = new Utilisateur(1, "Aminata Traore", "aminata@2ie.edu");
         Utilisateur kofi = new Utilisateur(2, "Kofi Ouedraogo", "kofi@2ie.edu");
