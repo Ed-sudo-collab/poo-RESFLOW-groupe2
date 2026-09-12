@@ -29,9 +29,11 @@ Grace à RESFLOW , chaque établissement pourra avoir une vue sur l'exploitation
        -Consulter les réservations.
        -Gérer les ressources(par l'administrateur) : ajouter une ressources, retirer une ressource, ajouter des règles sur les 
 réservations.
+       -Refuser une reservation si la ressource est deja prise ou si la duree du creneau depasse la duree maximale autorisee
+(4h pour une salle, 8h pour un materiel mobile).
  
 6-CONCEPTION DE RESFLOW
-           RESFLOW est concue autour de quatre classes principales : 
+           RESFLOW est concue autour des classes suivantes : 
     Classe Utilisateur
       Attributs:
           -nom              : Type String
@@ -40,17 +42,30 @@ réservations.
       Méthodes:
           -afficher()
 
-    Classe Ressource
+    Classe Ressource (abstraite)
       Attributs:
           -nom              : Type String
-          -type             : Type enum {BOX,PROJECTEUR,SALLE,ORDINATEUR}
           -numero           : Type int
           -disponible       : Type boolean
-          -reservationActive: Type reservation
+          -reservationActive: Type Reservation
       Méthodes:
           -afficher()
           -reserver()
-          -Liberer()
+          -liberer()
+          -dureeMaxReservation() (abstraite)
+
+    Classe Salle (herite de Ressource)
+      Attributs:
+          -capacite         : Type int
+      Méthodes:
+          -dureeMaxReservation() : retourne 4
+
+    Classe MaterielMobile (herite de Ressource)
+      Attributs:
+          -categorie        : Type String
+      Méthodes:
+          -dureeMaxReservation() : retourne 8
+          -getCategorie()
 
     Classe Creneau
       Attribut:
@@ -71,18 +86,22 @@ réservations.
 
 7- FONCTIONNEMENT DE RESFLOW
     le fonctionnement de RESFLOW ainsi que les liens entre les différentes classes sont visibles par un diagramme dans le fichier
-docs de notre dossier GROUPE2 IA S 5.
+docs/Diagrammes de classes.png de notre dossier GROUPE2 IA S 5.
+    Les essais dans Main montrent notamment : refus d'une salle sur 10h, acceptation d'une salle sur 2h,
+et acceptation d'un materiel mobile sur 5h.
 
 8- STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
      STRUCTURE DU PROJET
      
-     poo-nomduprojet-groupe2/
+     poo-RESFLOW-groupe2/
         README.md
         docs/
-            diagramme-classes.png
+            Diagrammes de classes.png
          src/
              Main.java
              Ressource.java
+             Salle.java
+             MaterielMobile.java
              Utilisateur.java
              Creneau.java
              Reservation.java
@@ -90,18 +109,10 @@ docs de notre dossier GROUPE2 IA S 5.
 
      Technologies utilisées:
          .Java               : langage utilisé pour dévélopper l'application.
-         .POO                : approche utiisée pour exprimer les classes et leurs relations.
+         .POO                : approche utiisée pour exprimer les classes et leurs relations (heritage, polymorphisme).
          .Git/GitHub         : gestion et partage du projet.
 
 9-EQUIPE DE TRAVAIL
-        -MINOUNGOU Eldine Doria                 : Rédaction du README
-        -ZERBO Judicael                         :Réalisation du contenu de la classe main
-        -KOARA Dorianne                         : Realisation du diagramme de fonctionnement
-
-
-
-
-
-
-
-
+        -MINOUNGOU Eldine Doria                 : Rédaction du README et travail sur les classes Ressource, Salle, MaterielMobile
+        -ZERBO Judicael      :Mis en place du dépôt github et travail sur les classes Reservation,Utilisateur,Creneau et Main 
+        -KOARA Dorianne            : Realisation du diagramme de fonctionnement et travail sur les classes, Ressource, MaterielMobile
