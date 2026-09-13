@@ -1,3 +1,8 @@
+Groupe 2
+    - MINOUNGOU Eldine Doria
+    - ZERBO Judicael
+    - KOARA Dorianne
+
 RESFLOW : Une application de gestion des ressources d'un établissement
 
 1-CONSTAT
