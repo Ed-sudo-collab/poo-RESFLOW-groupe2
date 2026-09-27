@@ -1,7 +1,7 @@
 Groupe 2
 -NIKIEMA KAFONO ARMAND RAMZIE ARCHAD 2E JUMEAU
 - OUALBEOGO GUETWENDE JULIE SIDOINE
-- ZERBO JUDICIAL 
+- ZERBO JUDICAEL 
 - KOARA Dorianne
 
 RESFLOW : Une application de gestion des ressources d'un établissement
