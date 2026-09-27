@@ -35,6 +35,16 @@ public class Creneau {
         return jour + " " + heureDebut + "h-" + heureFin + "h";
     }
 
+    public int getDuree() {
+    return heureFin - heureDebut;
+    }
+    public boolean seChevaucheAvec(Creneau autre) {
+    if (autre == null || !this.jour.equalsIgnoreCase(autre.jour)) {
+        return false;
+    }
+    return this.heureDebut < autre.heureFin && autre.heureDebut < this.heureFin;
+    }
+
     public void afficher() {
         System.out.println("Creneau n°" + numero + " : " + getLibelle());
     }
