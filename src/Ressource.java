@@ -1,7 +1,7 @@
 /**
  * Ressource partagee
  */
-public abstract class Ressource {
+public abstract class Ressource implements Reservable {
     // abstract afin qu'un objet de typ Ressource ne puise être créer
     private int numero;
     private String nom;
@@ -23,6 +23,7 @@ public abstract class Ressource {
         return nom;
     }
 
+    @Override
     public boolean estDisponible() {
         return disponible;
     }
@@ -31,6 +32,7 @@ public abstract class Ressource {
         return reservationActive;
     }
 
+    @Override
     public boolean reserver(int numeroReservation, Utilisateur utilisateur, Creneau creneau) {
         int duree;
 
@@ -59,6 +61,7 @@ public abstract class Ressource {
         return true;
     }
 
+    @Override
     public void liberer() {
         reservationActive = null;
         disponible = true;
@@ -75,6 +78,7 @@ public abstract class Ressource {
         }
     }
 
+    @Override
     public abstract int dureeMaxReservation();
 
     public String toString() {
