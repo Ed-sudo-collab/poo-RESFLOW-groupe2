@@ -47,7 +47,14 @@ réservations.
       Méthodes:
           -afficher()
 
-    Classe Ressource (abstraite)
+    Interface Reservable
+      Méthodes:
+           -estDisponible()
+           -reserver()
+           -liberer()
+           -dureeMaxReservation()
+
+    Classe Ressource (abstraite, implemente Reservable)
       Attributs:
           -nom              : Type String
           -numero           : Type int
@@ -97,13 +104,14 @@ et acceptation d'un materiel mobile sur 5h.
 
 8- STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
      STRUCTURE DU PROJET
-     
+      
      poo-RESFLOW-groupe2/
         README.md
         docs/
             Diagrammes de classes.png
          src/
              Main.java
+             Reservable.java
              Ressource.java
              Salle.java
              MaterielMobile.java

@@ -1,0 +1,106 @@
+@startuml
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam dpi 150
+
+skinparam interface {
+  BackgroundColor #E8F0FE
+  BorderColor #1F4E79
+  FontColor #1F4E79
+}
+
+skinparam abstract {
+  BackgroundColor #FFF8E8
+  BorderColor #1F4E79
+}
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1F4E79
+  HeaderBackgroundColor #1F4E79
+  FontColor #1A1A1A
+}
+
+interface Reservable {
+  + estDisponible() : boolean
+  + reserver(numeroReservation : int, utilisateur : Utilisateur, creneau : Creneau) : boolean
+  + liberer() : void
+  + dureeMaxReservation() : int
+}
+
+abstract class Ressource {
+  - numero : int
+  - nom : String
+  - disponible : boolean
+  - reservationActive : Reservation
+  --
+  + estDisponible() : boolean
+  + reserver(numeroReservation : int, utilisateur : Utilisateur, creneau : Creneau) : boolean
+  + liberer() : void
+  + afficher() : void
+  + {abstract} dureeMaxReservation() : int
+}
+
+class Salle {
+  - capacite : int
+  --
+  + dureeMaxReservation() : int
+}
+
+class MaterielMobile {
+  - categorie : String
+  --
+  + getCategorie() : String
+  + dureeMaxReservation() : int
+}
+
+class Utilisateur {
+  - numero : int
+  - nom : String
+  - email : String
+  --
+  + afficher() : void
+}
+
+class Creneau {
+  - numero : int
+  - jour : String
+  - heureDebut : int
+  - heureFin : int
+  --
+  + getHeureDebut() : int
+  + getHeureFin() : int
+  + afficher() : void
+}
+
+class Reservation {
+  - numero : int
+  --
+  + afficher() : void
+}
+
+Reservable <|.. Ressource
+Ressource <|-- Salle
+Ressource <|-- MaterielMobile
+
+Ressource "1" o-- "0..1" Reservation : reservationActive
+Reservation "0..*" --> "1" Utilisateur
+Reservation "0..*" --> "1" Creneau
+
+note bottom of Salle
+  duree max = 4 h
+end note
+
+note bottom of MaterielMobile
+  duree max = 8 h
+end note
+
+note bottom of Ressource
+  reserver() refuse si la ressource
+  est occupee ou si la duree
+  depasse dureeMaxReservation()
+end note
+
+@enduml

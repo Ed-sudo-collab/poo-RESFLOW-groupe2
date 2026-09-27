@@ -36,13 +36,7 @@ public class Creneau {
     }
 
     public int getDuree() {
-    return heureFin - heureDebut;
-    }
-    public boolean seChevaucheAvec(Creneau autre) {
-    if (autre == null || !this.jour.equalsIgnoreCase(autre.jour)) {
-        return false;
-    }
-    return this.heureDebut < autre.heureFin && autre.heureDebut < this.heureFin;
+        return heureFin - heureDebut;
     }
 
     public void afficher() {

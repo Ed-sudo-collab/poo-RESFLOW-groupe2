@@ -1,19 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Ressource partagee
  */
-public abstract class Ressource {
-    // abstract afin qu'un objet de type Ressource ne puisse pas etre cree directement
+public abstract class Ressource implements Reservable {
+    // abstract afin qu'un objet de typ Ressource ne puise être créer
     private int numero;
     private String nom;
-    private List<Reservation> reservations;
+    private boolean disponible;
+    private Reservation reservationActive;
 
     public Ressource(int numero, String nom) {
         this.numero = numero;
         this.nom = nom;
-        this.reservations = new ArrayList<>();
+        this.disponible = true;
+        this.reservationActive = null;
     }
 
     public int getNumero() {
@@ -24,26 +23,20 @@ public abstract class Ressource {
         return nom;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    @Override
+    public boolean estDisponible() {
+        return disponible;
     }
 
-    // Disponibilite centralisee : un seul endroit calcule si la ressource
-    // est libre sur un creneau donne, en verifiant les chevauchements
-    // avec les reservations deja enregistrees.
-    public boolean estDisponible(Creneau creneau) {
-        for (Reservation reservation : reservations) {
-            if (reservation.getCreneau().seChevaucheAvec(creneau)) {
-                return false;
-            }
-        }
-        return true;
+    public Reservation getReservationActive() {
+        return reservationActive;
     }
 
+    @Override
     public boolean reserver(int numeroReservation, Utilisateur utilisateur, Creneau creneau) {
+        int duree;
 
-        // 1. Refus si la duree depasse le maximum de CETTE ressource
-        int duree = creneau.getDuree();
+        duree = creneau.getDuree();
         if (duree > dureeMaxReservation()) {
             System.out.println(
                     "Reservation refusee : le creneau dure " + duree
@@ -52,39 +45,39 @@ public abstract class Ressource {
             return false;
         }
 
-        // 2. Refus si la ressource est deja occupee sur ce creneau precis
-        if (!estDisponible(creneau)) {
-            System.out.println(
-                    "Reservation refusee : " + nom + " est deja occupee sur le creneau "
-                            + creneau.getLibelle() + ".");
+        if (!estDisponible()) {
+            System.out.println("Reservation refusee : " + nom + " est deja reservee.");
             return false;
         }
 
-        // 3. Sinon, reservation acceptee
-        Reservation reservation = new Reservation(numeroReservation, this, utilisateur, creneau);
-        reservations.add(reservation);
-        System.out.println("Reservation acceptee pour " + nom + " sur " + creneau.getLibelle() + ".");
+        reservationActive = new Reservation(numeroReservation, this, utilisateur, creneau);
+        disponible = false;
+        System.out.println("Reservation acceptee.");
         return true;
     }
 
-    public void liberer(Reservation reservation) {
-        if (reservation != null && reservations.remove(reservation)) {
-            System.out.println(nom + " : la reservation n°" + reservation.getNumero() + " a ete liberee.");
-        } else {
-            System.out.println(nom + " : impossible de liberer, reservation introuvable.");
-        }
+    @Override
+    public void liberer() {
+        reservationActive = null;
+        disponible = true;
+        System.out.println(nom + " est maintenant disponible.");
     }
 
     public void afficher() {
-        System.out.println(
-                "Ressource n°" + numero + " | " + nom + " | "
-                        + reservations.size() + " reservation(s) active(s)");
+        if (disponible) {
+            System.out.println(
+                    "Ressource n°" + numero + " | " + nom + " | Disponible");
+        } else {
+            System.out.println(
+                    "Ressource n°" + numero + " | " + nom + " | Indisponible");
+        }
     }
 
+    @Override
     public abstract int dureeMaxReservation();
 
     public String toString() {
-        return "Ressource n°" + numero + " | " + nom + " | " + reservations.size() + " reservation(s)";
+        return "Ressource" + numero + " ;" + nom + " ;" + disponible + ";" + reservationActive;
     }
 
 }
