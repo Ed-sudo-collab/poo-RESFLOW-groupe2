@@ -2,8 +2,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource salleA = new Salle(1, "Salle B12", 100);
-        Ressource projecteur = new MaterielMobile(2, "Videoprojecteur Epson", "Audiovisuel");
+        Reservable salleA = new Salle(1, "Salle B12", 100);
+        Reservable projecteur = new MaterielMobile(2, "Videoprojecteur Epson", "Audiovisuel");
 
         Utilisateur aminata = new Utilisateur(1, "Aminata Traore", "aminata@2ie.edu");
         Utilisateur kofi = new Utilisateur(2, "Kofi Ouedraogo", "kofi@2ie.edu");

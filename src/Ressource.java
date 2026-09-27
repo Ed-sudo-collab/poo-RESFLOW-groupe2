@@ -28,6 +28,7 @@ public abstract class Ressource implements Reservable {
         return disponible;
     }
 
+    @Override
     public Reservation getReservationActive() {
         return reservationActive;
     }
@@ -63,6 +64,7 @@ public abstract class Ressource implements Reservable {
         System.out.println(nom + " est maintenant disponible.");
     }
 
+    @Override
     public void afficher() {
         if (disponible) {
             System.out.println(

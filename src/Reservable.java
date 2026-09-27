@@ -3,4 +3,6 @@ public interface Reservable {
     boolean reserver(int numeroReservation, Utilisateur utilisateur, Creneau creneau);
     void liberer();
     int dureeMaxReservation();
+    Reservation getReservationActive();
+    void afficher();
 }
