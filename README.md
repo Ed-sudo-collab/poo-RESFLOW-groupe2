@@ -1,6 +1,5 @@
 Groupe 2
 -NIKIEMA KAFONO ARMAND RAMZIE ARCHAD 2E JUMEAU
-- OUALBEOGO GUETWENDE JULIE SIDOINE
 - ZERBO JUDICAEL 
 - KOARA Dorianne
 
@@ -169,6 +168,5 @@ Technologies utilisées :
 
 10-EQUIPE DE TRAVAIL
 - RAMZIE : ajouter l'interface Reservable.
-- JULIE : centraliser la disponibilité ; refuser une durée excessive ou une ressource occupée.
-- JUDICAEL : tester Salle et MaterielMobile à travers l'interface Reservable.
+- JUDICAEL : tester Salle et MaterielMobile à travers l'interface Reservable ; centraliser la disponibilité et refuser une durée excessive ou une ressource occupée.
 - DORIANNE : PosteTravail (Reservable hors Ressource), choix écarté dans le README, diagramme.
