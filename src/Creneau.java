@@ -9,8 +9,12 @@ public class Creneau {
     private int heureFin;
 
     public Creneau(int numero, String jour, int heureDebut, int heureFin) {
+        if (heureFin <= heureDebut) {
+            throw new IllegalArgumentException(
+                    "L'heure de fin doit etre strictement superieure a l'heure de debut.");
+        }
         this.numero = numero;
-        this.jour = jour;
+        this.jour = jour == null ? "" : jour.trim();
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
     }

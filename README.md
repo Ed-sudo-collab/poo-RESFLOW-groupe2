@@ -122,7 +122,37 @@ Classe Reservation
   Méthodes :
     -afficher()
 
-7-CHOIX DE CONCEPTION (abstraction et interfaces)
+7-JALON 1 : SYNTHESE (modele, invariants, essais manuels)
+
+  Tag Git sur ce depot : jalon-1
+
+  Classes et responsabilites :
+    - Utilisateur : personne qui effectue une reservation (numero, nom, email).
+    - Creneau : intervalle horaire (jour, heureDebut, heureFin) ; calcule la duree.
+    - Reservation : associe un numero, un element reservable, un utilisateur et un creneau.
+    - Reservable : contrat commun (disponibilite, reserver, liberer, duree max, affichage).
+    - Ressource : code, nom, etat de disponibilite et logique de reservation partagee.
+    - Salle / MaterielMobile : ressources concretes avec duree maximale propre (4 h / 8 h).
+    - PosteTravail : element reservable sans etre une Ressource (duree max 3 h).
+
+  Invariants (regles que le modele respecte) :
+    1. Le code et le nom d'une Ressource ne sont jamais vides a la creation.
+    2. Un Creneau verifie heureFin > heureDebut ; la duree vaut heureFin - heureDebut.
+    3. Tant qu'une reservation est active, l'element reservable n'est pas disponible.
+    4. Apres liberer(), l'element redevient disponible et n'a plus de reservation active.
+    5. reserver() echoue si l'element est deja occupe.
+    6. reserver() echoue si la duree du creneau depasse dureeMaxReservation().
+
+  Essais manuels dans Main.java :
+    - Affichage salle, materiel mobile et utilisateurs.
+    - Refus reservation salle sur creneau de 10 h (max 4 h).
+    - Acceptation reservation salle sur 2 h puis affichage de la reservation.
+    - Refus d'une seconde reservation sur la meme salle deja occupee.
+    - Liberation puis nouvel etat disponible.
+    - Reservation materiel mobile sur 5 h (max 8 h) puis liberation.
+    - Reservation poste de travail (Reservable hors Ressource) sur 2 h.
+
+8-CHOIX DE CONCEPTION (abstraction et interfaces)
   Classe abstraite retenue : Ressource, pour regrouper le code, le nom,
   la disponibilité et la réservation communes aux salles et au matériel mobile.
   Interface retenue : Reservable, pour manipuler une salle, un matériel mobile
@@ -132,7 +162,7 @@ Classe Reservation
   mais chaque nouvelle ressource réservable aurait recopié les mêmes règles,
   et Main n'aurait plus pu tester plusieurs types avec une seule variable Reservable.
 
-8-FONCTIONNEMENT DE RESFLOW
+9-FONCTIONNEMENT DE RESFLOW
 Le fonctionnement de RESFLOW ainsi que les liens entre les différentes classes
 sont visibles dans le diagramme du fichier docs/Diagrammes de classes.png.
 Les essais dans Main passent par une référence de type Reservable. Ils
@@ -141,7 +171,7 @@ le refus d'une deuxième réservation sur la même salle déjà occupée, la
 libération de la salle, puis l'acceptation d'un matériel mobile sur 5h,
 ainsi qu'un poste de travail (Reservable sans Ressource) sur 2 h.
 
-9-STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
+10-STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
 
 STRUCTURE DU PROJET
 
@@ -166,7 +196,7 @@ Technologies utilisées :
     .POO        : approche utilisée pour exprimer les classes et leurs relations (héritage, polymorphisme).
     .Git/GitHub : gestion et partage du projet.
 
-10-EQUIPE DE TRAVAIL
+11-EQUIPE DE TRAVAIL
 - RAMZIE : ajouter l'interface Reservable.
 - JUDICAEL : tester Salle et MaterielMobile à travers l'interface Reservable ; centraliser la disponibilité et refuser une durée excessive ou une ressource occupée.
 - DORIANNE : PosteTravail (Reservable hors Ressource), choix écarté dans le README, diagramme.
