@@ -60,5 +60,12 @@ public class Main {
         System.out.println("Creneau vide : " + ReservationCours.reserverPourCours(salleCours, ""));
         System.out.println("Reservation cours : " + ReservationCours.reserverPourCours(salleCours, "Mercredi 14h-16h"));
         System.out.println("Double reservation : " + ReservationCours.reserverPourCours(salleCours, "Jeudi 10h-12h"));
+        System.out.println();
+
+        System.out.println("=== PosteTravail (Reservable sans Ressource) ===");
+        Reservable poste = new PosteTravail("POSTE-A3", "Zone silencieuse");
+        poste.afficher();
+        poste.reserver(11, aminata, new Creneau(11, "Vendredi", 9, 11));
+        poste.afficher();
     }
 }

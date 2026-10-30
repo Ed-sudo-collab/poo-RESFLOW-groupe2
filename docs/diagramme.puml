@@ -28,16 +28,19 @@ interface Reservable {
   + reserver(numeroReservation : int, utilisateur : Utilisateur, creneau : Creneau) : boolean
   + liberer() : void
   + dureeMaxReservation() : int
+  + getReservationActive() : Reservation
+  + afficher() : void
 }
 
 abstract class Ressource {
-  - numero : int
+  - code : String
   - nom : String
   - disponible : boolean
   - reservationActive : Reservation
   --
+  + typeRessource() : String
   + estDisponible() : boolean
-  + reserver(numeroReservation : int, utilisateur : Utilisateur, creneau : Creneau) : boolean
+  + reserver(...) : boolean
   + liberer() : void
   + afficher() : void
   + {abstract} dureeMaxReservation() : int
@@ -50,9 +53,18 @@ class Salle {
 }
 
 class MaterielMobile {
+  - numeroSerie : String
   - categorie : String
   --
-  + getCategorie() : String
+  + dureeMaxReservation() : int
+}
+
+class PosteTravail {
+  - code : String
+  - zone : String
+  - disponible : boolean
+  - reservationActive : Reservation
+  --
   + dureeMaxReservation() : int
 }
 
@@ -70,8 +82,7 @@ class Creneau {
   - heureDebut : int
   - heureFin : int
   --
-  + getHeureDebut() : int
-  + getHeureFin() : int
+  + getDuree() : int
   + afficher() : void
 }
 
@@ -82,25 +93,19 @@ class Reservation {
 }
 
 Reservable <|.. Ressource
+Reservable <|.. PosteTravail
 Ressource <|-- Salle
 Ressource <|-- MaterielMobile
 
 Ressource "1" o-- "0..1" Reservation : reservationActive
+PosteTravail "1" o-- "0..1" Reservation : reservationActive
+Reservation "0..*" --> "1" Reservable
 Reservation "0..*" --> "1" Utilisateur
 Reservation "0..*" --> "1" Creneau
 
-note bottom of Salle
-  duree max = 4 h
-end note
-
-note bottom of MaterielMobile
-  duree max = 8 h
-end note
-
-note bottom of Ressource
-  reserver() refuse si la ressource
-  est occupee ou si la duree
-  depasse dureeMaxReservation()
+note bottom of PosteTravail
+  Exemple Reservable
+  sans heriter de Ressource
 end note
 
 @enduml

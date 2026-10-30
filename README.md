@@ -71,15 +71,25 @@ Interface Reservable
 
 Classe Ressource (abstraite, implémente Reservable)
   Attributs :
+    -code              : Type String
     -nom               : Type String
-    -numero            : Type int
     -disponible        : Type boolean
-    -reservationActive : Type Reservation 
+    -reservationActive : Type Reservation
   Méthodes :
+    -typeRessource() (abstraite)
     -afficher()
     -reserver()
     -liberer()
     -dureeMaxReservation() (abstraite)
+
+Classe PosteTravail (implémente Reservable, sans hériter de Ressource)
+  Attributs :
+    -code              : Type String
+    -zone              : Type String
+  Méthodes :
+    -dureeMaxReservation() : retourne 3
+  Un poste de travail peut être réservé comme une salle, mais ce n'est pas
+  une ressource matérielle de l'établissement au sens de Salle ou MaterielMobile.
 
 Classe Salle (hérite de Ressource)
   Attributs :
@@ -89,7 +99,8 @@ Classe Salle (hérite de Ressource)
 
 Classe MaterielMobile (hérite de Ressource)
   Attributs :
-    -categorie : Type String
+    -numeroSerie : Type String
+    -categorie   : Type String
   Méthodes :
     -dureeMaxReservation() : retourne 8
     -getCategorie()
@@ -105,22 +116,33 @@ Classe Creneau
 
 Classe Reservation
   Attributs :
-    -numero      : Type int
-    -ressources  : Type Ressource
-    -utilisateur : Type Utilisateur
-    -creneau     : Type Créneau
+    -numero            : Type int
+    -elementReservable : Type Reservable
+    -utilisateur       : Type Utilisateur
+    -creneau           : Type Creneau
   Méthodes :
     -afficher()
 
-7-FONCTIONNEMENT DE RESFLOW
+7-CHOIX DE CONCEPTION (abstraction et interfaces)
+  Classe abstraite retenue : Ressource, pour regrouper le code, le nom,
+  la disponibilité et la réservation communes aux salles et au matériel mobile.
+  Interface retenue : Reservable, pour manipuler une salle, un matériel mobile
+  ou un poste de travail avec la même référence dans Main.
+  Choix écarté : dupliquer reserver() et liberer() dans Salle et MaterielMobile
+  sans classe abstraite ni interface. Cela aurait fonctionné pour deux classes,
+  mais chaque nouvelle ressource réservable aurait recopié les mêmes règles,
+  et Main n'aurait plus pu tester plusieurs types avec une seule variable Reservable.
+
+8-FONCTIONNEMENT DE RESFLOW
 Le fonctionnement de RESFLOW ainsi que les liens entre les différentes classes
 sont visibles dans le diagramme du fichier docs/Diagrammes de classes.png.
 Les essais dans Main passent par une référence de type Reservable. Ils
 montrent : le refus d'une salle sur 10h, l'acceptation d'une salle sur 2h,
 le refus d'une deuxième réservation sur la même salle déjà occupée, la
-libération de la salle, puis l'acceptation d'un matériel mobile sur 5h.
+libération de la salle, puis l'acceptation d'un matériel mobile sur 5h,
+ainsi qu'un poste de travail (Reservable sans Ressource) sur 2 h.
 
-8-STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
+9-STRUCTURE DU PROJET ET TECHNOLOGIES UTILISEES
 
 STRUCTURE DU PROJET
 
@@ -134,6 +156,8 @@ poo-RESFLOW-groupe2/
         Ressource.java
         Salle.java
         MaterielMobile.java
+        PosteTravail.java
+        ReservationCours.java
         Utilisateur.java
         Creneau.java
         Reservation.java
@@ -143,8 +167,8 @@ Technologies utilisées :
     .POO        : approche utilisée pour exprimer les classes et leurs relations (héritage, polymorphisme).
     .Git/GitHub : gestion et partage du projet.
 
-9-EQUIPE DE TRAVAIL
+10-EQUIPE DE TRAVAIL
 - RAMZIE : ajouter l'interface Reservable.
 - JULIE : centraliser la disponibilité ; refuser une durée excessive ou une ressource occupée.
 - JUDICAEL : tester Salle et MaterielMobile à travers l'interface Reservable.
-- DORIANNE : harmoniser les noms des membres du groupe dans le README et corriger le diagramme de classes.
+- DORIANNE : PosteTravail (Reservable hors Ressource), choix écarté dans le README, diagramme.

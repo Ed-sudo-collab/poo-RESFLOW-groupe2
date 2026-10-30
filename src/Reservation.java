@@ -4,13 +4,13 @@
 public class Reservation {
 
     private int numero;
-    private Ressource ressource;
+    private Reservable elementReservable;
     private Utilisateur utilisateur;
     private Creneau creneau;
 
-    public Reservation(int numero, Ressource ressource, Utilisateur utilisateur, Creneau creneau) {
+    public Reservation(int numero, Reservable elementReservable, Utilisateur utilisateur, Creneau creneau) {
         this.numero = numero;
-        this.ressource = ressource;
+        this.elementReservable = elementReservable;
         this.utilisateur = utilisateur;
         this.creneau = creneau;
     }
@@ -19,8 +19,8 @@ public class Reservation {
         return numero;
     }
 
-    public Ressource getRessource() {
-        return ressource;
+    public Reservable getElementReservable() {
+        return elementReservable;
     }
 
     public Utilisateur getUtilisateur() {
@@ -33,7 +33,7 @@ public class Reservation {
 
     public void afficher() {
         System.out.println("--- Reservation n°" + numero + " ---");
-        ressource.afficher();
+        elementReservable.afficher();
         utilisateur.afficher();
         creneau.afficher();
     }
