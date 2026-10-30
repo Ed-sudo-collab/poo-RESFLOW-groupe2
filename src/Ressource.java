@@ -2,26 +2,33 @@
  * Ressource partagee
  */
 public abstract class Ressource implements Reservable {
-    // abstract afin qu'un objet de typ Ressource ne puise être créer
-    private int numero;
+    private String code;
     private String nom;
     private boolean disponible;
     private Reservation reservationActive;
 
-    public Ressource(int numero, String nom) {
-        this.numero = numero;
-        this.nom = nom;
+    public Ressource(String code, String nom) {
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le code de la ressource ne peut pas etre vide.");
+        }
+        if (nom == null || nom.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le nom de la ressource ne peut pas etre vide.");
+        }
+        this.code = code.trim();
+        this.nom = nom.trim();
         this.disponible = true;
         this.reservationActive = null;
     }
 
-    public int getNumero() {
-        return numero;
+    public String getCode() {
+        return code;
     }
 
     public String getNom() {
         return nom;
     }
+
+    public abstract String typeRessource();
 
     @Override
     public boolean estDisponible() {
@@ -68,18 +75,19 @@ public abstract class Ressource implements Reservable {
     public void afficher() {
         if (disponible) {
             System.out.println(
-                    "Ressource n°" + numero + " | " + nom + " | Disponible");
+                    "Ressource " + code + " | " + nom + " | " + typeRessource() + " | Disponible");
         } else {
             System.out.println(
-                    "Ressource n°" + numero + " | " + nom + " | Indisponible");
+                    "Ressource " + code + " | " + nom + " | " + typeRessource() + " | Indisponible");
         }
     }
 
     @Override
     public abstract int dureeMaxReservation();
 
+    @Override
     public String toString() {
-        return "Ressource" + numero + " ;" + nom + " ;" + disponible + ";" + reservationActive;
+        return typeRessource() + " " + code + " ;" + nom + " ;" + disponible + ";" + reservationActive;
     }
 
 }

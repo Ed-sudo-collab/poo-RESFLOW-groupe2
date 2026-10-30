@@ -2,8 +2,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Reservable salleA = new Salle(1, "Salle B12", 100);
-        Reservable projecteur = new MaterielMobile(2, "Videoprojecteur Epson", "Audiovisuel");
+        Reservable salleA = new Salle("SAL-B12", "Salle B12", 100);
+        Reservable projecteur = new MaterielMobile("MAT-EPSON", "Videoprojecteur Epson", "SN-8842", "Audiovisuel");
 
         Utilisateur aminata = new Utilisateur(1, "Aminata Traore", "aminata@2ie.edu");
         Utilisateur kofi = new Utilisateur(2, "Kofi Ouedraogo", "kofi@2ie.edu");
@@ -53,5 +53,12 @@ public class Main {
 
         projecteur.liberer();
         projecteur.afficher();
+        System.out.println();
+
+        System.out.println("=== reserverPourCours ===");
+        Reservable salleCours = new Salle("SAL-C01", "Salle C01", 50);
+        System.out.println("Creneau vide : " + ReservationCours.reserverPourCours(salleCours, ""));
+        System.out.println("Reservation cours : " + ReservationCours.reserverPourCours(salleCours, "Mercredi 14h-16h"));
+        System.out.println("Double reservation : " + ReservationCours.reserverPourCours(salleCours, "Jeudi 10h-12h"));
     }
 }

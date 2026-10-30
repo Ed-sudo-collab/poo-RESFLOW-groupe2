@@ -1,15 +1,28 @@
 public class MaterielMobile extends Ressource {
 
+    private String numeroSerie;
     private String categorie;
 
-    public MaterielMobile(int numero, String nom, String categorie) {
-        super(numero, nom);
+    public MaterielMobile(String code, String nom, String numeroSerie, String categorie) {
+        super(code, nom);
+        if (numeroSerie == null || numeroSerie.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le numero de serie ne peut pas etre vide.");
+        }
+        this.numeroSerie = numeroSerie.trim();
         this.categorie = categorie;
+    }
 
+    public String getNumeroSerie() {
+        return numeroSerie;
     }
 
     public String getCategorie() {
-        return this.categorie;
+        return categorie;
+    }
+
+    @Override
+    public String typeRessource() {
+        return "MaterielMobile";
     }
 
     @Override
@@ -19,7 +32,7 @@ public class MaterielMobile extends Ressource {
 
     @Override
     public String toString() {
-        return "Materiel Mobile" + super.toString() + "; categorie : " + categorie;
+        return "MaterielMobile" + super.toString() + "; numeroSerie=" + numeroSerie + "; categorie=" + categorie;
     }
 
 }
