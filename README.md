@@ -152,6 +152,39 @@ Classe Reservation
     - Reservation materiel mobile sur 5 h (max 8 h) puis liberation.
     - Reservation poste de travail (Reservable hors Ressource) sur 2 h.
 
+JALON 2 — composition, heritage justifie, polymorphisme, invariants
+
+  Tag Git sur ce depot : jalon-2
+
+  Composition :
+    - Une Reservation regroupe un element reservable, un utilisateur et un creneau.
+    - Ressource et PosteTravail detiennent au plus une reservationActive (lien vers Reservation).
+
+  Heritage justifie :
+    - Salle et MaterielMobile heritent de Ressource : code, nom, disponibilite et
+      logique commune de reservation ; seul dureeMaxReservation() (et attributs specifiques)
+      differencie les sous-types.
+
+  Polymorphisme :
+    - Le type Reservable dans Main et dans ReservationCours.reserverPourCours(Reservable, …)
+      accepte Salle, MaterielMobile ou PosteTravail : le comportement depend du type reel.
+
+  Invariants :
+    - Memes regles que dans la section Jalon 1 (points 1 a 6), appliquees dans le code.
+
+  Au moins huit essais manuels cumules (blocs === … === dans Main.java) :
+    1. Affichage des durees max salle / materiel mobile
+    2. Affichage salle, projecteur et utilisateurs
+    3. Essai salle 8h–18h (refus : duree > max)
+    4. Reservation salle 8h–10h (acceptee) + affichage reservation
+    5. Autre reservation sur la meme salle occupee (refus)
+    6. Liberation de la salle puis affichage disponible
+    7. Reservation projecteur 8h–13h + affichage + liberation
+    8. reserverPourCours : creneau vide → false
+    9. reserverPourCours : cours → true
+    10. reserverPourCours : double reservation → false
+    11. PosteTravail : affichage puis reservation acceptee
+
 8-CHOIX DE CONCEPTION (abstraction et interfaces)
   Classe abstraite retenue : Ressource, pour regrouper le code, le nom,
   la disponibilité et la réservation communes aux salles et au matériel mobile.
