@@ -92,6 +92,25 @@ class Reservation {
   + afficher() : void
 }
 
+class CatalogueReservable {
+  - elements : ArrayList<Reservable>
+  --
+  + ajouter(element : Reservable) : void
+  + nombreDisponibles() : int
+  + afficherDisponibles() : void
+}
+
+class HistoriqueReservations {
+  - reservations : ArrayList<Reservation>
+  --
+  + enregistrer(reservation : Reservation) : void
+  + afficher() : void
+  + nombre() : int
+}
+
+CatalogueReservable o-- "0..*" Reservable : elements
+HistoriqueReservations o-- "0..*" Reservation : reservations
+
 Reservable <|.. Ressource
 Reservable <|.. PosteTravail
 Ressource <|-- Salle

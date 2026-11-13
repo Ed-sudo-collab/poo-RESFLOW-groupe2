@@ -185,6 +185,55 @@ JALON 2 — composition, heritage justifie, polymorphisme, invariants
     10. reserverPourCours : double reservation → false
     11. PosteTravail : affichage puis reservation acceptee
 
+JALON 3 — interfaces, collections, cas limites, essais manuels
+
+  Lien du depot GitHub : https://github.com/Ed-sudo-collab/poo-RESFLOW-groupe2.git
+  Tag Git sur ce depot : jalon-3
+
+  Interface utilisee :
+    - Reservable : contrat commun pour reserver, liberer, connaitre la disponibilite
+      et la duree maximale, que l'element soit une Ressource (salle, materiel) ou un
+      PosteTravail. Justification : Main et Reservation manipulent une reference unique
+      sans connaitre la classe concrete ; on peut ajouter un nouveau type reservable
+      sans recopier la logique de test.
+
+  Collections utilisees (java.util.ArrayList) :
+    - CatalogueReservable : ArrayList<Reservable> regroupe toutes les ressources
+      listees par l'etablissement ; on parcourt la liste pour compter et afficher les
+      elements disponibles. Justification : le nombre de salles, materiels et postes
+      n'est pas fixe dans le temps ; une collection evite de multiplier les variables
+      isolees dans Main.
+    - HistoriqueReservations : ArrayList<Reservation> conserve les reservations
+      acceptees pendant la demonstration. Justification : il faut pouvoir consulter
+      plusieurs reservations reussies sans n'avoir qu'un seul attribut reservationActive
+      par objet.
+
+  Cas limites traites :
+    1. Creneau avec heure de fin <= heure de debut : IllegalArgumentException dans Creneau.
+    2. Code ou nom de ressource vide : IllegalArgumentException a la creation.
+    3. Duree du creneau > dureeMaxReservation() : reserver() retourne false.
+    4. Ressource deja occupee : seconde reserver() retourne false.
+    5. Liberation : la ressource redevient disponible (catalogue mis a jour).
+    6. reserverPourCours avec libelle vide : retourne false.
+    7. reserverPourCours sur ressource deja occupee : retourne false.
+    8. Poste de travail : duree max 3 h (refus si depassement comme pour les autres).
+
+  Au moins douze essais manuels cumules (blocs === dans Main.java) :
+    1. Catalogue initial (taille, nombre de disponibles, affichage)
+    2. Durees max salle / materiel / poste
+    3. Affichage salle, projecteur, utilisateurs
+    4. Essai salle 8h-18h (refus duree)
+    5. Reservation salle 8h-10h (acceptation + affichage)
+    6. Seconde reservation sur salle occupee (refus)
+    7. Liberation + catalogue des disponibles
+    8. Reservation projecteur 8h-13h puis liberation
+    9. reserverPourCours : creneau vide
+    10. reserverPourCours : cours accepte
+    11. reserverPourCours : double reservation
+    12. PosteTravail : reservation acceptee
+    13. Creneau invalide (exception)
+    14. Historique : nombre et affichage des reservations enregistrees
+
 8-CHOIX DE CONCEPTION (abstraction et interfaces)
   Classe abstraite retenue : Ressource, pour regrouper le code, le nom,
   la disponibilité et la réservation communes aux salles et au matériel mobile.
@@ -223,6 +272,8 @@ poo-RESFLOW-groupe2/
         Utilisateur.java
         Creneau.java
         Reservation.java
+        CatalogueReservable.java
+        HistoriqueReservations.java
 
 Technologies utilisées :
     .Java       : langage utilisé pour développer l application.
