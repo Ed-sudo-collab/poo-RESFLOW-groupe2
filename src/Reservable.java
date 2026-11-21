@@ -1,4 +1,5 @@
 public interface Reservable {
+    String getCode();
     boolean estDisponible();
     boolean reserver(int numeroReservation, Utilisateur utilisateur, Creneau creneau);
     void liberer();
