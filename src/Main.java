@@ -66,6 +66,11 @@ public class Main {
         }
     }
 
+    private static boolean reserver(Reservable cible, int numeroReservation,
+                                    Utilisateur utilisateur, Creneau creneau) {
+        return ServiceReservation.reserver(cible, numeroReservation, utilisateur, creneau);
+    }
+
     private static void enregistrerSiOk(boolean ok, Reservable cible, HistoriqueReservations historique) {
         if (ok && cible.getReservationActive() != null) {
             historique.enregistrer(cible.getReservationActive());
@@ -109,6 +114,18 @@ public class Main {
         verifier("Recherche code vide retourne null", (Object) null, (Object) codeVide);
         System.out.println();
 
+        System.out.println("=== Ajout au catalogue : element null (refus) ===");
+        int tailleAvantNull = catalogue.taille();
+        boolean ajoutNull = catalogue.ajouter(null);
+        verifier("Ajout null refuse", false, ajoutNull);
+        verifier("Taille catalogue inchangee apres ajout null", true, catalogue.taille() == tailleAvantNull);
+        System.out.println();
+
+        System.out.println("=== ServiceReservation : parametres null (refus) ===");
+        verifier("Reserver avec cible null", false,
+                ServiceReservation.reserver(null, 1, aminata, new Creneau(1, "Lundi", 9, 10)));
+        System.out.println();
+
         System.out.println("=== Durees max ===");
         System.out.println("Duree max pour une salle: " + salleA.dureeMaxReservation() + " h");
         System.out.println("Duree max pour un materiel mobile: " + projecteur.dureeMaxReservation() + " h");
@@ -124,13 +141,13 @@ public class Main {
 
         System.out.println("=== Essai salle 8h-18h (duree 10h > max 4h) ===");
         boolean etaitDisponibleAvant = salleA.estDisponible();
-        boolean okRefus = salleA.reserver(1, aminata, new Creneau(1, "Lundi", 8, 18));
+        boolean okRefus = reserver(salleA, 1, aminata, new Creneau(1, "Lundi", 8, 18));
         verifier("Reservation salle 10h refusee", false, okRefus);
         verifierEtatInchange("Etat salle apres refus 10h", salleA, etaitDisponibleAvant, null);
         System.out.println();
 
         System.out.println("=== Reservation salle 8h-10h (duree 2h <= max 4h) ===");
-        boolean ok = salleA.reserver(2, aminata, new Creneau(2, "Lundi", 8, 10));
+        boolean ok = reserver(salleA, 2, aminata, new Creneau(2, "Lundi", 8, 10));
         verifier("Reservation salle 2h acceptee", true, ok);
         enregistrerSiOk(ok, salleA, historique);
         if (ok) {
@@ -141,7 +158,7 @@ public class Main {
         System.out.println("=== Autre reservation sur la meme salle (deja occupee) ===");
         etaitDisponibleAvant = salleA.estDisponible();
         Reservation reservationAvant = salleA.getReservationActive();
-        boolean okDouble = salleA.reserver(3, kofi, new Creneau(3, "Lundi", 10, 12));
+        boolean okDouble = reserver(salleA, 3, kofi, new Creneau(3, "Lundi", 10, 12));
         verifier("Deuxieme reservation sur salle occupee refusee", false, okDouble);
         verifierEtatInchange("Etat salle apres double reservation", salleA, etaitDisponibleAvant, reservationAvant);
         System.out.println();
@@ -153,13 +170,13 @@ public class Main {
         System.out.println();
 
         System.out.println("=== Nouvelle reservation apres liberation (8h-10h) ===");
-        boolean okApresLiberation = salleA.reserver(5, aminata, new Creneau(5, "Lundi", 8, 10));
+        boolean okApresLiberation = reserver(salleA, 5, aminata, new Creneau(5, "Lundi", 8, 10));
         verifier("Reservation apres liberation acceptee", true, okApresLiberation);
         enregistrerSiOk(okApresLiberation, salleA, historique);
         System.out.println();
 
         System.out.println("=== Reservation projecteur 8h-13h (duree 5h <= max 8h) ===");
-        ok = projecteur.reserver(4, kofi, new Creneau(4, "Mardi", 8, 13));
+        ok = reserver(projecteur, 4, kofi, new Creneau(4, "Mardi", 8, 13));
         verifier("Reservation projecteur 5h acceptee", true, ok);
         enregistrerSiOk(ok, projecteur, historique);
         if (ok) {
@@ -203,7 +220,9 @@ public class Main {
 
         System.out.println("=== PosteTravail (Reservable sans Ressource) ===");
         poste.afficher();
-        enregistrerSiOk(poste.reserver(11, aminata, new Creneau(11, "Vendredi", 9, 11)), poste, historique);
+        boolean okPoste = reserver(poste, 11, aminata, new Creneau(11, "Vendredi", 9, 11));
+        verifier("Reservation poste acceptee", true, okPoste);
+        enregistrerSiOk(okPoste, poste, historique);
         poste.afficher();
         System.out.println();
 

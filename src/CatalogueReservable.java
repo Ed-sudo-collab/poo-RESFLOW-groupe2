@@ -40,7 +40,7 @@ public class CatalogueReservable {
      * Recherche un element reservable par son code identifiant.
      *
      * @param code le code a rechercher (non null)
-     * @param l'element trouve, ou null si aucun element n'a ce code
+     * @return l'element trouve, ou null si aucun element n'a ce code
      */
     public Reservable chercherParCode(String code) {
         if (code == null || code.trim().isEmpty()) {

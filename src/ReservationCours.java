@@ -34,6 +34,6 @@ public final class ReservationCours {
         }
 
         Creneau creneau = new Creneau(NUMERO_CRENEAU_COURS, jour.trim(), heureDebut, heureFin);
-        return ressource.reserver(0, UTILISATEUR_COURS, creneau);
+        return ServiceReservation.reserver(ressource, 0, UTILISATEUR_COURS, creneau);
     }
 }

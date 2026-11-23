@@ -188,51 +188,32 @@ JALON 2 — composition, heritage justifie, polymorphisme, invariants
 JALON 3 — interfaces, collections, cas limites, essais manuels
 
   Lien du depot GitHub : https://github.com/Ed-sudo-collab/poo-RESFLOW-groupe2.git
-  Tag Git sur ce depot : jalon-3
+  Tag Git sur ce depot : jalon-3 (aligne sur la version finale apres retour de suivi)
 
   Interface utilisee :
-    - Reservable : contrat commun pour reserver, liberer, connaitre la disponibilite
-      et la duree maximale, que l'element soit une Ressource (salle, materiel) ou un
-      PosteTravail. Justification : Main et Reservation manipulent une reference unique
-      sans connaitre la classe concrete ; on peut ajouter un nouveau type reservable
-      sans recopier la logique de test.
+    - Reservable (+ getCode()) : identifiant unique et contrat commun (reserver, liberer,
+      disponibilite, duree max). Justification : une seule reference dans Main, Reservation
+      et le catalogue pour salle, materiel et poste.
 
-  Collections utilisees (java.util.ArrayList) :
-    - CatalogueReservable : ArrayList<Reservable> regroupe toutes les ressources
-      listees par l'etablissement ; on parcourt la liste pour compter et afficher les
-      elements disponibles. Justification : le nombre de salles, materiels et postes
-      n'est pas fixe dans le temps ; une collection evite de multiplier les variables
-      isolees dans Main.
-    - HistoriqueReservations : ArrayList<Reservation> conserve les reservations
-      acceptees pendant la demonstration. Justification : il faut pouvoir consulter
-      plusieurs reservations reussies sans n'avoir qu'un seul attribut reservationActive
-      par objet.
+  Service de reservation :
+    - ServiceReservation centralise les tentatives de reservation (Main et ReservationCours).
+    - etatInchangeApresEchec verifie qu'un refus ne modifie pas disponibilite ni reservationActive.
 
-  Cas limites traites :
-    1. Creneau avec heure de fin <= heure de debut : IllegalArgumentException dans Creneau.
-    2. Code ou nom de ressource vide : IllegalArgumentException a la creation.
-    3. Duree du creneau > dureeMaxReservation() : reserver() retourne false.
-    4. Ressource deja occupee : seconde reserver() retourne false.
-    5. Liberation : la ressource redevient disponible (catalogue mis a jour).
-    6. reserverPourCours avec libelle vide : retourne false.
-    7. reserverPourCours sur ressource deja occupee : retourne false.
-    8. Poste de travail : duree max 3 h (refus si depassement comme pour les autres).
+  Collections (ArrayList) :
+    - CatalogueReservable : liste des Reservable ; unicité du code (refus des doublons),
+      recherche par code.
+    - HistoriqueReservations : liste des reservations acceptees.
 
-  Au moins douze essais manuels cumules (blocs === dans Main.java) :
-    1. Catalogue initial (taille, nombre de disponibles, affichage)
-    2. Durees max salle / materiel / poste
-    3. Affichage salle, projecteur, utilisateurs
-    4. Essai salle 8h-18h (refus duree)
-    5. Reservation salle 8h-10h (acceptation + affichage)
-    6. Seconde reservation sur salle occupee (refus)
-    7. Liberation + catalogue des disponibles
-    8. Reservation projecteur 8h-13h puis liberation
-    9. reserverPourCours : creneau vide
-    10. reserverPourCours : cours accepte
-    11. reserverPourCours : double reservation
-    12. PosteTravail : reservation acceptee
-    13. Creneau invalide (exception)
-    14. Historique : nombre et affichage des reservations enregistrees
+  Corrections apres retour de suivi (priorites enseignant) :
+    1. ReservationCours utilise jour, heureDebut, heureFin (ex. Mercredi 14h-16h).
+    2. Code unique ; ajouter refuse doublon / null ; chercherParCode et recherche vide.
+    3. Chaque scenario dans Main : attendu, obtenu, PASS/FAIL ; echecs sans changement d'etat.
+
+  Cas limites :
+    Creneau invalide, duree > max, ressource occupee, jour vide pour cours, parametres null
+    au service, ajout catalogue null ou code deja present.
+
+  Essais : lancer java Main ; bloc RESULTAT FINAL DES TESTS (compteur PASS/FAIL).
 
 8-CHOIX DE CONCEPTION (abstraction et interfaces)
   Classe abstraite retenue : Ressource, pour regrouper le code, le nom,
@@ -274,6 +255,7 @@ poo-RESFLOW-groupe2/
         Reservation.java
         CatalogueReservable.java
         HistoriqueReservations.java
+        ServiceReservation.java
 
 Technologies utilisées :
     .Java       : langage utilisé pour développer l application.
