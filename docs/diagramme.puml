@@ -24,6 +24,7 @@ skinparam class {
 }
 
 interface Reservable {
+  + getCode() : String
   + estDisponible() : boolean
   + reserver(numeroReservation : int, utilisateur : Utilisateur, creneau : Creneau) : boolean
   + liberer() : void
@@ -95,9 +96,19 @@ class Reservation {
 class CatalogueReservable {
   - elements : ArrayList<Reservable>
   --
-  + ajouter(element : Reservable) : void
+  + ajouter(element : Reservable) : boolean
+  + chercherParCode(code : String) : Reservable
   + nombreDisponibles() : int
   + afficherDisponibles() : void
+}
+
+class ServiceReservation {
+  + {static} reserver(...) : boolean
+  + {static} etatInchangeApresEchec(...) : boolean
+}
+
+class ReservationCours {
+  + {static} reserverPourCours(...) : boolean
 }
 
 class HistoriqueReservations {

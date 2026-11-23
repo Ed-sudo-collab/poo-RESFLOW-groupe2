@@ -5,6 +5,25 @@ Groupe 2
 
 RESFLOW : Une application de gestion des ressources d'un établissement
 
+JALON 4 — VERSION FINALE (depot collectif Moodle)
+
+  Depot GitHub : https://github.com/Ed-sudo-collab/poo-RESFLOW-groupe2.git
+  Tag de release : version-1.0
+
+  Compilation et demonstration (dossier src) :
+    javac *.java
+    java Main
+  Le programme affiche les scenarios puis RESULTAT FINAL DES TESTS (PASS/FAIL).
+
+  Perimetre de la version 1.0 :
+    Application console Java (POO) : reservation de salles, materiel mobile et postes
+    de travail ; catalogue (code unique), historique des reservations acceptees ;
+    ServiceReservation pour centraliser les tentatives de reservation ; essais manuels
+    documentes dans Main.java (preuves complementaires du rapport LaTeX).
+
+  Tags du projet : jalon-1, jalon-2, jalon-3, version-1.0
+  Diagramme : docs/Diagrammes de classes.png (source PlantUML : docs/diagramme.puml)
+
 1-CONSTAT
 Dans les établissements, les ressources sont utilisées par différentes personnes
 au cours de la journée. Lorsque leur utilisation est organisée par des méthodes
@@ -188,7 +207,7 @@ JALON 2 — composition, heritage justifie, polymorphisme, invariants
 JALON 3 — interfaces, collections, cas limites, essais manuels
 
   Lien du depot GitHub : https://github.com/Ed-sudo-collab/poo-RESFLOW-groupe2.git
-  Tag Git sur ce depot : jalon-3 (aligne sur la version finale apres retour de suivi)
+  Tag Git sur ce depot : jalon-3 (voir version-1.0 pour le rendu jalon 4)
 
   Interface utilisee :
     - Reservable (+ getCode()) : identifiant unique et contrat commun (reserver, liberer,
