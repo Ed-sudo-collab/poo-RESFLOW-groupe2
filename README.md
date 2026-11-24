@@ -268,6 +268,11 @@ poo-RESFLOW-groupe2/
     README.md
     docs/
         Diagrammes de classes.png
+        diagramme.puml
+        rapport/
+            rapport-resflow.pdf
+    lib/
+        junit-platform-console-standalone-1.11.4.jar
     src/
         Main.java
         Reservable.java
@@ -282,10 +287,15 @@ poo-RESFLOW-groupe2/
         CatalogueReservable.java
         HistoriqueReservations.java
         ServiceReservation.java
+    test/
+        ReservationReglesTest.java
+        ReservationEtatTest.java
+        CatalogueCoursTest.java
 
 Technologies utilisées :
     .Java       : langage utilisé pour développer l application.
     .POO        : approche utilisée pour exprimer les classes et leurs relations (héritage, polymorphisme).
+    .JUnit 5    : dix-huit tests exécutables (règles, état, catalogue et cours).
     .Git/GitHub : gestion et partage du projet.
 
 11-EQUIPE DE TRAVAIL

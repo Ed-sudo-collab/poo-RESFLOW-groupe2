@@ -1,4 +1,5 @@
 @startuml
+!pragma layout smetana
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam classAttributeIconSize 0
@@ -98,6 +99,7 @@ class CatalogueReservable {
   --
   + ajouter(element : Reservable) : boolean
   + chercherParCode(code : String) : Reservable
+  + taille() : int
   + nombreDisponibles() : int
   + afficherDisponibles() : void
 }
@@ -118,6 +120,10 @@ class HistoriqueReservations {
   + afficher() : void
   + nombre() : int
 }
+
+ServiceReservation ..> Reservable : reserver
+ReservationCours ..> ServiceReservation
+ReservationCours ..> Creneau : jour, debut, fin
 
 CatalogueReservable o-- "0..*" Reservable : elements
 HistoriqueReservations o-- "0..*" Reservation : reservations
