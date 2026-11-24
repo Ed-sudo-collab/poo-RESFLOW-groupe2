@@ -299,6 +299,19 @@ Technologies utilisées :
     .Git/GitHub : gestion et partage du projet.
 
 11-EQUIPE DE TRAVAIL
-- RAMZIE : ajouter l'interface Reservable.
-- JUDICAEL : tester Salle et MaterielMobile à travers l'interface Reservable ; centraliser la disponibilité et refuser une durée excessive ou une ressource occupée.
-- DORIANNE : PosteTravail (Reservable hors Ressource), choix écarté dans le README, diagramme.
+- RAMZIE : interface Reservable et getCode() ; catalogue sans doublon de code ;
+  ReservationCours avec jour, heure de debut et heure de fin ; ServiceReservation ;
+  essais attendu / obtenu dans Main ; section jalon 4 du README et source PlantUML ;
+  tests JUnit d'occupation, d'etat, de catalogue et de cours ;
+  recette verifiee : Main 22 reussites, JUnit 18 reussites.
+- JUDICAEL : essais de Salle et de MaterielMobile a travers une reference Reservable ;
+  disponibilite centralisee dans Ressource (refus si la duree depasse le maximum
+  ou si la ressource est deja occupee) ; MaterielMobile, code de ressource et
+  reserverPourCours ; documentation des jalons 2 et 3 ; conformite au retour de suivi
+  (les reservations passent par ServiceReservation, un ajout null est refuse) ;
+  quatre tests JUnit de demarrage ; placement du tag version-1.0.
+- DORIANNE : PosteTravail, Reservable qui n'herite pas de Ressource ; choix ecarte
+  dans le README (ne pas recopier reserver et liberer dans chaque classe) ;
+  synthese et invariants du jalon 1 ; diagramme de classes du jalon 3, puis
+  diagramme de la version finale (getCode, chercherParCode, ServiceReservation,
+  ReservationCours).
