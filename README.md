@@ -20,6 +20,7 @@ JALON 4 — VERSION FINALE (depot collectif Moodle)
     java -jar lib\junit-platform-console-standalone-1.11.4.jar -cp out --select-class ReservationReglesTest --select-class ReservationEtatTest --select-class CatalogueCoursTest
   Dix-huit tests : regles de base, occupation et etat, catalogue, recherche par code
   et reservation de cours (jour vide, mercredi 14 h-16 h, second cours refuse).
+  Recette verifiee : Main affiche 22 reussites et 0 echec ; JUnit affiche 18 reussites et 0 echec.
 
   Perimetre de la version 1.0 :
     Application console Java (POO) : reservation de salles, materiel mobile et postes
