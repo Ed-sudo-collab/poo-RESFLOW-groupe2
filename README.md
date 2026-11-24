@@ -17,9 +17,9 @@ JALON 4 — VERSION FINALE (depot collectif Moodle)
 
   Tests JUnit (depuis la racine du depot) :
     javac -encoding UTF-8 -cp lib\junit-platform-console-standalone-1.11.4.jar -d out src\*.java test\*.java
-    java -jar lib\junit-platform-console-standalone-1.11.4.jar -cp out --select-class ReservationReglesTest
-  Quatre tests : creneau invalide, code vide, reservation de 2 h acceptee,
-  reservation de 10 h refusee sans changer l'etat.
+    java -jar lib\junit-platform-console-standalone-1.11.4.jar -cp out --select-class ReservationReglesTest --select-class ReservationEtatTest
+  Dix tests : les quatre regles de base, puis occupation, etat inchange apres refus,
+  reservation apres liberation, materiel mobile sur 5 h et poste sur 2 h.
 
   Perimetre de la version 1.0 :
     Application console Java (POO) : reservation de salles, materiel mobile et postes
